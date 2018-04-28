@@ -1,12 +1,26 @@
 class TablaDinamica extends HTMLElement{
     constructor(){
         super();
+        this._text = null;
 
     }
 
     connectedCallback(){
         const shadow = this.attachShadow({mode: 'open'});
-
+        shadow.innerHTML=`
+              <style>
+                    table, th, td
+                {
+                    margin:10px 0;
+                    border:solid 1px #333;
+                    padding:2px 4px;
+                    font:15px Verdana;
+                }
+                th {
+                    font-weight:bold;
+                }
+                 </style>
+                <div> <slot name = 'text'></slot></div>`;
         const contenedor = document.createElement('div');
         contenedor.id = 'tbl';
 
@@ -19,7 +33,7 @@ class TablaDinamica extends HTMLElement{
 
         var datajson = []; //arreglo de objetos obtenidos del json
 
-      let createTableFromJSON =  function (myBooks) {
+        let createTableFromJSON =  function (myBooks) {
 
               /*  var myBooks = [
                     {
@@ -94,7 +108,7 @@ class TablaDinamica extends HTMLElement{
                 xhttp.send();
 
         }
-        userAction("fabricantes");
+        userAction(this.getAttribute('text'));
 
     }
 }
